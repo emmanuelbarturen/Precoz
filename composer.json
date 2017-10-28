@@ -1,5 +1,6 @@
 {
   "name": "emm/precoz",
+  "version": "1.0.0",
   "description": "fast developtment in laravel",
   "type": "library",
   "authors": [
