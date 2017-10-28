@@ -1,5 +1,10 @@
 <?php namespace Emm\Precoz;
 
+/**
+ * Created by emmanuel <emmanuelbarturen@gmail.com>.
+ * Date: 13/05/17
+ */
+
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;

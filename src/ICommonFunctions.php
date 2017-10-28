@@ -1,5 +1,10 @@
 <?php namespace Emm\Precoz;
 
+/**
+ * Created by emmanuel <emmanuelbarturen@gmail.com>.
+ * Date: 13/05/17
+ */
+
 use Illuminate\Database\Eloquent\Collection;
 
 interface ICommonFunctions
