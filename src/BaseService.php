@@ -42,7 +42,7 @@ abstract class BaseService implements ICommonFunctions
      * @param array $relations
      * @return Model
      */
-    public function find(int $id, array $columns = ['*'], array $relations = []): Model
+    public function find(int $id, array $columns = ['*'], array $relations = [])
     {
         return $this->mainRepo->find($id, $columns);
     }
@@ -52,7 +52,7 @@ abstract class BaseService implements ICommonFunctions
      * @param array $relations
      * @return Model
      */
-    public function first(array $columns = ['*'], array $relations = []): Model
+    public function first(array $columns = ['*'], array $relations = [])
     {
         return $this->mainRepo->first($columns);
     }

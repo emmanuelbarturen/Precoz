@@ -31,7 +31,7 @@ abstract class BaseRepository implements ICommonFunctions
      * @param array $relations
      * @return Model
      */
-    public function find(int $id, array $columns = ['*'], array $relations = []): Model
+    public function find(int $id, array $columns = ['*'], array $relations = [])
     {
         return $this->model->select($columns)->with($relations)->find($id);
     }
@@ -41,7 +41,7 @@ abstract class BaseRepository implements ICommonFunctions
      * @param array $relations
      * @return Model
      */
-    public function first(array $columns = ['*'], array $relations = []): Model
+    public function first(array $columns = ['*'], array $relations = [])
     {
         return $this->model->select($columns)->with($relations)->first();
     }
