@@ -1,9 +1,10 @@
 {
   "name": "emm/precoz",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/emmanuelbarturen/Precoz",
-  "description": "fast developtment in laravel",
+  "description": "fast developtment in laravel 5.5+",
   "type": "library",
+  "license": "MIT",
   "authors": [
     {
       "name": "Emmanuel Barturen",
