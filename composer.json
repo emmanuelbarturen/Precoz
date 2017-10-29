@@ -1,6 +1,5 @@
 {
   "name": "emm/precoz",
-  "version": "1.0.3",
   "homepage": "https://github.com/emmanuelbarturen/Precoz",
   "description": "fast developtment in laravel 5.5+",
   "type": "library",
