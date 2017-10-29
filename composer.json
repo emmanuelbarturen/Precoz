@@ -1,6 +1,7 @@
 {
   "name": "emm/precoz",
-  "version": "1.0",
+  "version": "1.0.0",
+  "homepage": "https://github.com/emmanuelbarturen/Precoz",
   "description": "fast developtment in laravel",
   "type": "library",
   "authors": [
@@ -9,7 +10,6 @@
       "email": "emmanuelbarturen@gmail.com"
     }
   ],
-  "minimum-stability": "stable",
   "require": {
     "php": ">=7.0.0"
   },
