@@ -93,7 +93,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function getBy(array $where, array $columns = ['*'], array $relations = []): Collection
     {
-        return $this->mainRepo->getBy($where, $columns);
+        return $this->mainRepo->getBy($where, $columns, $relations);
     }
 
     /**
@@ -109,6 +109,17 @@ abstract class BaseService implements ICommonFunctions
     }
 
     /**
+     * @param array $where
+     * @param array $columns
+     * @param array $relations
+     * @return Collection
+     */
+    public function getMultiWhere(array $where, array $columns = ['*'], array $relations = []): Collection
+    {
+        return $this->mainRepo->getMultiWhere($where, $columns, $relations);
+    }
+
+    /**
      * @param string $field
      * @param array $values
      * @param array $columns
@@ -120,8 +131,7 @@ abstract class BaseService implements ICommonFunctions
         array $values,
         array $columns = ['*'],
         array $relations = []
-    ): Collection
-    {
+    ): Collection {
         return $this->mainRepo->getWhereNotIn($field, $values, $columns);
     }
 

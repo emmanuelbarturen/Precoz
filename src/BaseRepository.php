@@ -13,6 +13,10 @@ abstract class BaseRepository implements ICommonFunctions
 
     var $model = null;
 
+    /**
+     * BaseRepository constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
         if ($this->model == null) {
@@ -78,21 +82,14 @@ abstract class BaseRepository implements ICommonFunctions
     /**
      * @param array $where
      * @param array $columns
+     * @param array $relations
      * @return Collection
+     * @throws \Exception
      */
     public function getBy(array $where, array $columns = ['*'], array $relations = []): Collection
     {
-        if (count($where) == 2) {
-            $field = $where[0];
-            $comparator = '=';
-            $value = $where[1];
-        } else {
-            $field = $where[0];
-            $comparator = $where[1];
-            $value = $where[2];
-        }
-
-        return $this->model->select($columns)->with($relations)->where($field, $comparator, $value)->get();
+        $params = $this->parseWhereParams($where);
+        return $this->model->select($columns)->with($relations)->where($params['field'], $params['comparator'], $params['value'])->get();
     }
 
     /**
@@ -105,6 +102,48 @@ abstract class BaseRepository implements ICommonFunctions
     public function getWhereIn(string $field, array $values, array $columns = ['*'], array $relations = []): Collection
     {
         return $this->model->select($columns)->with($relations)->whereIn($field, $values)->get();
+    }
+
+    /**
+     * @param array $where
+     * @param array $columns
+     * @param array $relations
+     * @return Collection
+     * @throws \Exception
+     */
+    public function getMultiWhere(array $where, array $columns = ['*'], array $relations = []): Collection
+    {
+        $query = $this->model->query();
+
+        foreach ($where as $item) {
+            $params = $this->parseWhereParams($item);
+            $query->where($params['field'], $params['comparator'], $params['value']);
+        }
+
+        return $query->select($columns)->with($relations)->get();
+    }
+
+    /**
+     * @param array $where
+     * @return array
+     * @throws \Exception
+     */
+    private function parseWhereParams(array $where)
+    {
+        $params = [];
+        if (count($where) == 2) {
+            $params['field'] = $where[0];
+            $params['comparator'] = '=';
+            $params['value'] = $where[1];
+        } elseif(count($where) == 3) {
+            $params['field'] = $where[0];
+            $params['comparator'] = $where[1];
+            $params['value'] = $where[2];
+        }else{
+            throw new \Exception('Wrong Parameters, check [column,value] or [column,comparator,value] in query');
+        }
+
+        return $params;
     }
 
     /**
