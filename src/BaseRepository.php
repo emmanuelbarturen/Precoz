@@ -8,10 +8,22 @@
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class BaseRepository
+ * @package Emm\Precoz
+ */
 abstract class BaseRepository implements ICommonFunctions
 {
 
+    /**
+     * @var null
+     */
     var $model = null;
+
+    /**
+     * @return mixed
+     */
+    protected abstract function getMainModel();
 
     /**
      * BaseRepository constructor.
@@ -19,9 +31,7 @@ abstract class BaseRepository implements ICommonFunctions
      */
     public function __construct()
     {
-        if ($this->model == null) {
-            throw new \Exception('Model not found!');
-        }
+        $this->model = $this->getMainModel();
     }
 
     /**
@@ -89,7 +99,8 @@ abstract class BaseRepository implements ICommonFunctions
     public function getBy(array $where, array $columns = ['*'], array $relations = []): Collection
     {
         $params = $this->parseWhereParams($where);
-        return $this->model->select($columns)->with($relations)->where($params['field'], $params['comparator'], $params['value'])->get();
+        return $this->model->select($columns)->with($relations)->where($params['field'], $params['comparator'],
+            $params['value'])->get();
     }
 
     /**
@@ -135,11 +146,11 @@ abstract class BaseRepository implements ICommonFunctions
             $params['field'] = $where[0];
             $params['comparator'] = '=';
             $params['value'] = $where[1];
-        } elseif(count($where) == 3) {
+        } elseif (count($where) == 3) {
             $params['field'] = $where[0];
             $params['comparator'] = $where[1];
             $params['value'] = $where[2];
-        }else{
+        } else {
             throw new \Exception('Wrong Parameters, check [column,value] or [column,comparator,value] in query');
         }
 
