@@ -16,19 +16,18 @@ use Illuminate\Database\Eloquent\Model;
 abstract class BaseService implements ICommonFunctions
 {
     /**
-     * @var null
+     * @var BaseRepository
      */
-    protected $mainRepo = null;
+    protected $repo = null;
+
+    protected abstract function getRepository();
 
     /**
      * BaseService constructor.
-     * @throws Exception
      */
     public function __construct()
     {
-        if ($this->mainRepo == null) {
-            throw new Exception('mainRepository not found!');
-        }
+        $this->repo = $this->getRepository();
     }
 
     /**
@@ -38,7 +37,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function all(array $relations = [], array $columns = ['*']): Collection
     {
-        return $this->mainRepo->all($relations, $columns);
+        return $this->repo->all($relations, $columns);
     }
 
     /**
@@ -49,7 +48,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function find(int $id, array $columns = ['*'], array $relations = [])
     {
-        return $this->mainRepo->find($id, $columns);
+        return $this->repo->find($id, $columns);
     }
 
     /**
@@ -59,7 +58,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function first(array $columns = ['*'], array $relations = [])
     {
-        return $this->mainRepo->first($columns);
+        return $this->repo->first($columns);
     }
 
     /**
@@ -70,7 +69,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function paginate($limit = null, array $columns = ['*'], array $relations = []): Collection
     {
-        return $this->mainRepo->paginate($limit, $columns);
+        return $this->repo->paginate($limit, $columns);
     }
 
     /**
@@ -82,7 +81,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function findBy(string $field, $value, $columns = ['*'], array $relations = [])
     {
-        return $this->mainRepo->findBy($field, $value, $columns);
+        return $this->repo->findBy($field, $value, $columns);
     }
 
     /**
@@ -93,7 +92,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function getBy(array $where, array $columns = ['*'], array $relations = []): Collection
     {
-        return $this->mainRepo->getBy($where, $columns, $relations);
+        return $this->repo->getBy($where, $columns, $relations);
     }
 
     /**
@@ -105,7 +104,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function getWhereIn(string $field, array $values, array $columns = ['*'], array $relations = []): Collection
     {
-        return $this->mainRepo->getWhereIn($field, $values, $columns);
+        return $this->repo->getWhereIn($field, $values, $columns);
     }
 
     /**
@@ -116,7 +115,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function getMultiWhere(array $where, array $columns = ['*'], array $relations = []): Collection
     {
-        return $this->mainRepo->getMultiWhere($where, $columns, $relations);
+        return $this->repo->getMultiWhere($where, $columns, $relations);
     }
 
     /**
@@ -132,7 +131,7 @@ abstract class BaseService implements ICommonFunctions
         array $columns = ['*'],
         array $relations = []
     ): Collection {
-        return $this->mainRepo->getWhereNotIn($field, $values, $columns);
+        return $this->repo->getWhereNotIn($field, $values, $columns);
     }
 
     /**
@@ -141,7 +140,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function create(array $attributes)
     {
-        return $this->mainRepo->create($attributes);
+        return $this->repo->create($attributes);
     }
 
     /**
@@ -151,7 +150,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function update(array $attributes, int $id): bool
     {
-        return $this->mainRepo->update($attributes, $id);
+        return $this->repo->update($attributes, $id);
     }
 
     /**
@@ -161,7 +160,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function updateBy(array $where, array $inputs): bool
     {
-        return $this->mainRepo->updateBy($where, $inputs);
+        return $this->repo->updateBy($where, $inputs);
     }
 
     /**
@@ -172,7 +171,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function updateWhereIn(string $field, array $values, array $inputs): bool
     {
-        return $this->mainRepo->updateWhereIn($field, $values, $inputs);
+        return $this->repo->updateWhereIn($field, $values, $inputs);
     }
 
     /**
@@ -181,7 +180,7 @@ abstract class BaseService implements ICommonFunctions
      */
     public function delete(int $id): bool
     {
-        return $this->mainRepo->delete($id);
+        return $this->repo->delete($id);
     }
 
 }

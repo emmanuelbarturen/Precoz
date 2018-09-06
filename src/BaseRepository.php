@@ -16,22 +16,21 @@ abstract class BaseRepository implements ICommonFunctions
 {
 
     /**
-     * @var null
+     * @var Model
      */
     var $model = null;
 
     /**
      * @return mixed
      */
-    protected abstract function getMainModel();
+    protected abstract function getModel();
 
     /**
      * BaseRepository constructor.
-     * @throws \Exception
      */
     public function __construct()
     {
-        $this->model = $this->getMainModel();
+        $this->model = $this->getModel();
     }
 
     /**
