@@ -93,8 +93,9 @@ abstract class BaseRepository implements ICommonFunctions
      * @param array $columns
      * @param array $relations
      * @return Collection
+     * @throws \Exception
      */
-    public function getBy(array $where, array $relations = [], array $columns = ['*']): Collection
+    public function getBy(array $where, array $columns = ['*'], array $relations = []): Collection
     {
         $params = $this->parseWhereParams($where);
         return $this->model->select($columns)->with($relations)->where($params['field'], $params['comparator'],
@@ -151,7 +152,6 @@ abstract class BaseRepository implements ICommonFunctions
         } else {
             throw new \Exception('Wrong Parameters, check [column,value] or [column,comparator,value] in query');
         }
-
         return $params;
     }
 

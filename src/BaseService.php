@@ -89,6 +89,7 @@ abstract class BaseService implements ICommonFunctions
      * @param array $columns
      * @param array $relations
      * @return Collection
+     * @throws Exception
      */
     public function getBy(array $where, array $columns = ['*'], array $relations = []): Collection
     {
@@ -112,6 +113,7 @@ abstract class BaseService implements ICommonFunctions
      * @param array $columns
      * @param array $relations
      * @return Collection
+     * @throws Exception
      */
     public function getMultiWhere(array $where, array $columns = ['*'], array $relations = []): Collection
     {
