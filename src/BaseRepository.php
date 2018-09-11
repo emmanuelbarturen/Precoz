@@ -93,9 +93,8 @@ abstract class BaseRepository implements ICommonFunctions
      * @param array $columns
      * @param array $relations
      * @return Collection
-     * @throws \Exception
      */
-    public function getBy(array $where, array $columns = ['*'], array $relations = []): Collection
+    public function getBy(array $where, array $relations = [], array $columns = ['*']): Collection
     {
         $params = $this->parseWhereParams($where);
         return $this->model->select($columns)->with($relations)->where($params['field'], $params['comparator'],
